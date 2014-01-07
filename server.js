@@ -2,8 +2,10 @@
 var express = require('express');
 var azure = require('azure');
 var request = require('request')
-var accountName = 'your storage account';
-var accountKey = 'your secret key';
+
+var accountName = process.env.CUSTOMCONNSTR_ACCOUNT_NAME;
+var accountKey = process.env.CUSTOMCONNSTR_ACCOUNT_KEY;
+var eventfulKey = process.env.CUSTOMCONNSTR_EVENTFUL_KEY;
 
 var app = express();
 
@@ -12,13 +14,13 @@ var app = express();
 
 var apiUrl = "http://api.eventful.com/"
 app.use('/eventful', function (req, res) {
-    url = apiUrl + req.url + "&app_key=youreventfulappkey";
+    url = apiUrl + req.url + "&app_key=" + eventfulKey;
     req.pipe(request(url)).pipe(res);
 });
 
 app.use('/cache', function (req, res) {
     var blobname = req.query.blobname;
-    url = apiUrl + req.url + "&app_key=youreventfulappkey";
+    url = apiUrl + req.url + "&app_key=" + eventfulKey;
     res.send("success");
     request.get(url, function (err, response, body) {
         if (err) {

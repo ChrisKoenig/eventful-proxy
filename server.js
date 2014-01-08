@@ -36,12 +36,17 @@ app.use('/cache', function (req, res) {
 
 
 function save(body, blobname) {
-    var containerName = 'austinevents';
+    var containerName = 'events';
     var blobService = azure.createBlobService(accountName, accountKey);
-    console.log(body)
-    blobService.createBlockBlobFromText(containerName, blobname, body, { contentEncoding: 'UTF-8', contentType: 'application/json' }, function (error) {
+    blobService.createContainerIfNotExists(containerName, function (error) {
         if (!error) {
-            // File has been uploaded
+            blobService.createBlockBlobFromText(containerName, blobname, body, { contentEncoding: 'UTF-8', contentType: 'application/json' }, function (error) {
+                if (!error) {
+                    // File has been uploaded
+                }
+            });
+        } else {
+            console.log(error);
         }
     });
 }

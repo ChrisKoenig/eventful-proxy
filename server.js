@@ -38,7 +38,9 @@ app.use('/cache', function (req, res) {
 function save(body, blobname) {
     var containerName = 'events';
     var blobService = azure.createBlobService(accountName, accountKey);
-    blobService.createContainerIfNotExists(containerName, function (error) {
+    blobService.createContainerIfNotExists(containerName
+    , {publicAccessLevel : 'blob'}
+    , function(error){
         if (!error) {
             blobService.createBlockBlobFromText(containerName, blobname, body, { contentEncoding: 'UTF-8', contentType: 'application/json' }, function (error) {
                 if (!error) {

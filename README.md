@@ -32,3 +32,5 @@ Now you can merely use the api.eventful.com documentation to send requests and p
 * http://YOURSITENAME.azurewebsites.net/cache/rest/events/search?location=austin&sort_order=popularity&page_size=8&blobname=popular 
 
 Now navigate to you azure storage account.  There you will find a new container called “events” and within it a file called “popular”.  If you are not finding a new container or blob you may have a mistake in your ACOUNT_NAME or ACCOUNT_KEY values.
+
+(There is also a video that walks through these steps here http://www.youtube.com/watch?v=iUzN9P1LXiE )
